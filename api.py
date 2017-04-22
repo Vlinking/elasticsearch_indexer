@@ -1,4 +1,8 @@
+import json
 import webbrowser
+from urllib import urlencode
+from urlparse import urlsplit, parse_qs
+
 import httplib2
 
 from oauth2client import client
@@ -9,6 +13,9 @@ class InstagramAPI(object):
     """
     Class for accessing Instagram API endpoints.
     """
+    SELF_RECENT_URL = 'https://api.instagram.com/v1/users/self/media/recent'
+
+
     def __init__(self, credentials='', secrets='', scope='', redirect=''):
         """
         Sets inital data
@@ -36,9 +43,30 @@ class InstagramAPI(object):
 
         self.credentials = _credentials
 
+    def _add_parameter(self, uri, parameter, value):
+        """
+        Add parameter to the url.
+        """
+        url_data = urlsplit(uri)
+        qs_data = parse_qs(url_data.query)
+
+        if not parameter in qs_data:
+            qs_data[parameter] = value
+
+        return url_data._replace(query=urlencode(qs_data, True)).geturl()
+
     def _request(self, uri):
         """
-        Wrap request to add auth_token
+        Wrap request to add auth_token.
         """
         _http = httplib2.Http()
-        return _http.request("{0}?access_token={1}".format(uri, self.credentials.access_token), method="GET")[1]
+        uri = self._add_parameter(uri, 'access_token', self.credentials.access_token)
+        return _http.request(uri, method="GET")
+
+    def get_recent_media(self):
+        """
+        Make a request for recent media.
+        """
+        return self._request(self.SELF_RECENT_URL)
+
+

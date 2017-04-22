@@ -15,6 +15,7 @@ if __name__ == '__main__':
 
     # need first to install BlueStacks to emulate Android and upload to Instagram, my tablet
     # is TOAST...
-    request2 = api._request('https://api.instagram.com/v1/tags/nofilter/media/recent')
+    request2 = api.get_recent_media()
+    import pdb; pdb.set_trace()
 
 
