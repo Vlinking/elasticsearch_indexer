@@ -1,10 +1,8 @@
 import json
 import webbrowser
+import httplib2
 from urllib import urlencode
 from urlparse import urlsplit, parse_qs
-
-import httplib2
-
 from oauth2client import client
 from oauth2client.file import Storage
 
@@ -12,9 +10,11 @@ from oauth2client.file import Storage
 class InstagramAPI(object):
     """
     Class for accessing Instagram API endpoints.
+    Due to the constraints with Sandbox mode, we can't really do much with data or users.
     """
-    SELF_RECENT_URL = 'https://api.instagram.com/v1/users/self/media/recent'
-
+    CORE_URL = 'https://api.instagram.com/v1/'
+    SELF_RECENT_MEDIA_URL = 'users/self/media/recent'
+    TAG_MEDIA_URL = 'tags/{0}/media/recent'
 
     def __init__(self, credentials='', secrets='', scope='', redirect=''):
         """
@@ -57,16 +57,21 @@ class InstagramAPI(object):
 
     def _request(self, uri):
         """
-        Wrap request to add auth_token.
+        Wrap request to add auth_token, I found oauth2client library has problems with it.
         """
         _http = httplib2.Http()
+        uri = self.CORE_URL + uri
         uri = self._add_parameter(uri, 'access_token', self.credentials.access_token)
-        return _http.request(uri, method="GET")
+        return json.loads(_http.request(uri, method="GET")[1])['data']
 
     def get_recent_media(self):
         """
-        Make a request for recent media.
+        Make a request for recent media of our user.
         """
-        return self._request(self.SELF_RECENT_URL)
+        return self._request(self.SELF_RECENT_MEDIA_URL)
 
-
+    def get_tag_media(self, tag):
+        """
+        Make a request for current user's media.
+        """
+        return self._request(self.TAG_MEDIA_URL.format(tag))

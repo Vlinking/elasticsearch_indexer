@@ -1,4 +1,5 @@
-from api import InstagramAPI
+import json
+from instagram_api import InstagramAPI
 
 
 if __name__ == '__main__':
@@ -11,11 +12,14 @@ if __name__ == '__main__':
     )
 
     api.authorize()
-    request = api._request('https://api.instagram.com/v1/tags/search?q=snowy')
+    media = api.get_recent_media()
+    for photo in media:
+        print(photo)
 
-    # need first to install BlueStacks to emulate Android and upload to Instagram, my tablet
-    # is TOAST...
-    request2 = api.get_recent_media()
-    import pdb; pdb.set_trace()
+    media2 = api.get_tag_media('vidya')
+    for photo in media2:
+        print(photo)
+
+
 
 
