@@ -2,3 +2,4 @@
 credentials
 *.pyc
 .idea/*
+*.sqlite3
