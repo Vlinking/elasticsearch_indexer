@@ -25,6 +25,7 @@ class PhotoSerializer(object):
         for tag in data['tags']:
             photo.add_tag(tag)
 
+        photo.meta.id = data['id']
         photo.save()
 
 

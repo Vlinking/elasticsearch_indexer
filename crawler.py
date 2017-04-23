@@ -14,6 +14,7 @@ if __name__ == '__main__':
         hosts=['localhost']
     )
     instagram_api.authorize()
+
     media = instagram_api.get_recent_media()
     for photo in media:
         elasticsearch_api.serialize(photo)
