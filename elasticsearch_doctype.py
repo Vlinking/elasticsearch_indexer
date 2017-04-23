@@ -1,4 +1,4 @@
-from elasticsearch_dsl import DocType, Text, Keyword, Date, Integer, String, Nested, InnerObjectWrapper
+from elasticsearch_dsl import DocType, Text, Keyword, Date, String, Nested, InnerObjectWrapper
 
 
 class Tag(InnerObjectWrapper):

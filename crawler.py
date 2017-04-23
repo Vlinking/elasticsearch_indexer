@@ -1,28 +1,23 @@
-from elasticsearch_api import PhotoSerializer
-from elasticsearch_doctype import Photo
+from elasticsearch_api import PhotoSerializer, ElasticsearchAPI
 from instagram_api import InstagramAPI
-from elasticsearch_dsl.connections import connections
 
 
 if __name__ == '__main__':
-    api = InstagramAPI(
+    instagram_api = InstagramAPI(
         credentials='credentials',
         secrets='client_secrets.json',
         scope='public_content',
         redirect="http://www.contman.pl/"
     )
-
-    connections.create_connection(hosts=['localhost'])
-
-    Photo.init()
-    api.authorize()
-    media = api.get_recent_media()
+    elasticsearch_api = ElasticsearchAPI(
+        serializer=PhotoSerializer,
+        hosts=['localhost']
+    )
+    instagram_api.authorize()
+    media = instagram_api.get_recent_media()
     for photo in media:
-        PhotoSerializer.serialize(photo)
+        elasticsearch_api.serialize(photo)
 
-    # media2 = api.get_tag_media('vidya')
-    # for photo in media2:
-    #     print(photo)
+    response = elasticsearch_api.search('quake')
 
-    print(connections.get_connection().cluster.health())
 
