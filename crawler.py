@@ -1,9 +1,10 @@
-import json
+from elasticsearch_api import PhotoSerializer
+from elasticsearch_doctype import Photo
 from instagram_api import InstagramAPI
+from elasticsearch_dsl.connections import connections
 
 
 if __name__ == '__main__':
-
     api = InstagramAPI(
         credentials='credentials',
         secrets='client_secrets.json',
@@ -11,15 +12,17 @@ if __name__ == '__main__':
         redirect="http://www.contman.pl/"
     )
 
+    connections.create_connection(hosts=['localhost'])
+
+    Photo.init()
     api.authorize()
     media = api.get_recent_media()
     for photo in media:
-        print(photo)
+        PhotoSerializer.serialize(photo)
 
-    media2 = api.get_tag_media('vidya')
-    for photo in media2:
-        print(photo)
+    # media2 = api.get_tag_media('vidya')
+    # for photo in media2:
+    #     print(photo)
 
-
-
+    print(connections.get_connection().cluster.health())
 
