@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from django.views.generic import TemplateView
 
-# Create your views here.
+
+class IndexView(TemplateView):
+    """
+    Index view for the main search app page.
+    """
+    template_name = 'instagram_browser/index.html'
