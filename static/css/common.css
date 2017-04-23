@@ -1,0 +1,18 @@
+.main {
+    width: 500px;
+    height: 200px;
+    padding: 12px;
+    border: 1px solid #eef;
+}
+
+.main .search {
+    width: 200px;
+}
+
+.main input {
+    margin-top: 8px;
+}
+
+.photo {
+    border: 1px solid #eee;
+}

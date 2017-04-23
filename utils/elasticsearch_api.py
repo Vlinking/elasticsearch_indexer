@@ -2,7 +2,7 @@ from datetime import datetime
 from elasticsearch_dsl import Search
 from elasticsearch_dsl.connections import connections
 
-from elasticsearch_doctype import Photo
+from utils.elasticsearch_doctype import Photo
 
 
 class PhotoSerializer(object):

@@ -18,7 +18,7 @@ if __name__ == '__main__':
     media = instagram_api.get_recent_media()
     for photo in media:
         elasticsearch_api.serialize(photo)
-
-    response = elasticsearch_api.search('quake')
+        # so we get visual feedback
+        print photo
 
 
