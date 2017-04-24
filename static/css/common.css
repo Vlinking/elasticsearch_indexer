@@ -15,4 +15,10 @@
 
 .photo {
     border: 1px solid #eee;
+    margin-bottom: 16px;
+}
+
+.results_query {
+    margin-top: 16px;
+    margin-bottom: 8px;
 }

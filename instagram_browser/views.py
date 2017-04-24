@@ -28,6 +28,7 @@ class ElasticsearchView(TemplateView):
 
         response = elasticsearch_api.search(query)
         data = {
+            'query': query,
             'response': response,
             'error': ElasticsearchAPI.CONNECTION_ERROR,
             'error_message': ElasticsearchAPI.CONNECTION_ERROR_MESSAGE,

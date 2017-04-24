@@ -3,21 +3,25 @@
         {{ error_message }}
     </div>
 {% else %}
+    <div class="results_query">
+        Results for: <strong>{{ query }}</strong>
+    </div>
+    <div class="results_container">
     {% for photo in response %}
         <div class="photo">
             <div>
-                {{ photo.text }}
+                Description: {{ photo.text }}
             </div>
             <div>
-                {{ photo.from_user }}
+                From user: {{ photo.from_user }}
             </div>
             <div>
                 <img src="{{ photo.thumbnail }}">
             </div>
             <div>
-                {{ photo.text }}
+                Created: {{ photo.created_time }}
             </div>
         </div>
-
     {% endfor %}
+    </div>
 {% endif %}
