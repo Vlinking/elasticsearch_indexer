@@ -17,6 +17,7 @@ Simple search trough indexed data and displaying the photos.
 
 A client_secrets.json file is needed, with data same as an app registered on Instagram. It should go into utils/
 
+```
   "installed": {
     "client_id": "CLIENT_ID",
     "client_secret":"CLIENT_SECRET",
@@ -24,6 +25,7 @@ A client_secrets.json file is needed, with data same as an app registered on Ins
     "auth_uri": "https://api.instagram.com/oauth/authorize",
     "token_uri": "https://api.instagram.com/oauth/access_token"
   }
+```  
 
 You also need Elasticsearch installed (which requires Java) and running. Refer to Elasticsearch documentation for that.
 
