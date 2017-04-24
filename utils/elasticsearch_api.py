@@ -52,7 +52,7 @@ class ElasticsearchAPI(object):
         try:
             self.serializer.serialize(data)
         except ConnectionError:
-            print self.CONNECTION_ERROR_MESSAGE
+            print (self.CONNECTION_ERROR_MESSAGE)
 
     def search(self, keyword):
         """

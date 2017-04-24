@@ -18,8 +18,8 @@ class ElasticsearchView(TemplateView):
     """
     template_name = 'instagram_browser/photo.html'
 
-    def get(self, request, *args, **kwargs):
-        query = str(kwargs['query'])
+    def post(self, request):
+        query = str(request.POST['query'])
 
         elasticsearch_api = ElasticsearchAPI(
             serializer=PhotoSerializer,

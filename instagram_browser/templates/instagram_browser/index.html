@@ -2,15 +2,17 @@
 
 {% block content %}
 <div class="main">
-    <div>
-        <input type="text" id="search_query" value="Enter your search query..." class="search" />
-    </div>
-    <div>
-        <input type="submit" id="search_button" value="Search" />
-    </div>
+    <form id="search_form" action="" method="post">
+        {% csrf_token %}
+        <div>
+            <input type="text" id="query" name="query" value="Enter your search query..." class="search" />
+        </div>
+        <div>
+            <input type="submit" id="search_button" value="Search" />
+        </div>
 
-    <div id="search_result">
-    </div>
-
+        <div id="search_result">
+        </div>
+    </form>
 </div>
 {% endblock %}
