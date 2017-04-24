@@ -29,6 +29,8 @@ class ElasticsearchView(TemplateView):
         response = elasticsearch_api.search(query)
         data = {
             'response': response,
+            'error': ElasticsearchAPI.CONNECTION_ERROR,
+            'error_message': ElasticsearchAPI.CONNECTION_ERROR_MESSAGE,
         }
 
         return render_to_response(self.template_name, data, context_instance=RequestContext(request))

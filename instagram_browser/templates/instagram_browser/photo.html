@@ -1,17 +1,23 @@
-{% for photo in response %}
-    <div class="photo">
-        <div>
-            {{ photo.text }}
-        </div>
-        <div>
-            {{ photo.from_user }}
-        </div>
-        <div>
-            <img src="{{ photo.thumbnail }}">
-        </div>
-        <div>
-            {{ photo.text }}
-        </div>
+{% if response == error %}
+    <div>
+        {{ error_message }}
     </div>
+{% else %}
+    {% for photo in response %}
+        <div class="photo">
+            <div>
+                {{ photo.text }}
+            </div>
+            <div>
+                {{ photo.from_user }}
+            </div>
+            <div>
+                <img src="{{ photo.thumbnail }}">
+            </div>
+            <div>
+                {{ photo.text }}
+            </div>
+        </div>
 
-{% endfor %}
+    {% endfor %}
+{% endif %}

@@ -1,4 +1,6 @@
 from datetime import datetime
+
+from elasticsearch import ConnectionError
 from elasticsearch_dsl import Search
 from elasticsearch_dsl.connections import connections
 
@@ -33,6 +35,9 @@ class ElasticsearchAPI(object):
     """
     Class that wraps all communication to Elasticsearch via a given serializer.
     """
+    CONNECTION_ERROR = -1
+    CONNECTION_ERROR_MESSAGE = 'Connection error. Elasticsearch server is probably down.'
+
     def __init__(self, serializer=None, hosts=None):
         """
         Set serializer that will allow us to store data.
@@ -44,11 +49,17 @@ class ElasticsearchAPI(object):
         """
         Composition wrapper for serialize.
         """
-        self.serializer.serialize(data)
+        try:
+            self.serializer.serialize(data)
+        except ConnectionError:
+            print self.CONNECTION_ERROR_MESSAGE
 
     def search(self, keyword):
         """
         Wrapper for search.
         """
-        _query = Search().query("match", text=keyword)
-        return _query.execute()
+        try:
+            _query = Search().query("match", text=keyword)
+            return _query.execute()
+        except ConnectionError:
+            return self.CONNECTION_ERROR
